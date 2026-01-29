@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> FOOD DUDE</title>
+    {% comment %} to load the folder {% endcomment %}
+    {% comment %} {% load static %} {% endcomment %}
+    {% comment %} syntax for the link of css href="{% folder "filename"%}" {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="{% static 'styles.css' %}"> {% endcomment %}
+
+</head>
+<body>
+    <h3>Welcome to Food Dude</h3>
+    <a href="{% url 'open_sign_in' %}">Sign IN</a>
+    <br>
+    <a href="{% url 'open_sign_up' %}">Sign UP</a>
+
+</body>
+</html>

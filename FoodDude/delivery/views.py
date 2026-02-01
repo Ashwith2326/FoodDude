@@ -81,8 +81,8 @@ def add_restaurant(request):
         name = request.POST.get('name')
         picture = request.POST.get('picture')
         cuisine = request.POST.get('cuisine')
-        # rating = request.POST.get('rating')
-        rating = float(request.POST.get('rating'))
+        rating = request.POST.get('rating')
+        # rating = float(request.POST.get('rating'))
 
         try:
             Restaurant.objects.get(name = name)
@@ -93,7 +93,7 @@ def add_restaurant(request):
                 name = name,
                 picture = picture,
                 cuisine = cuisine,
-                Rating = rating,
+                rating = rating,
             )
         return HttpResponse("Successfully Added !")
         # return render(request, 'admin_home.html')
@@ -144,6 +144,36 @@ def update_menu(request, restaurant_id):
                 vegeterian = vegeterian,
                 picture = picture,
             )
-    # return render(request, 'admin_home.html')
-    return HttpResponse("added")
+    return render(request, 'admin_home.html')
+    # return HttpResponse("added")
     
+def open_update_restaurant(request, restaurant_id):
+    restaurant=Restaurant.objects.get(id=restaurant_id)
+    return render(request,'update_restaurant.html',{"restaurant" : restaurant})
+
+def update_restaurant(request, restaurant_id):
+    restaurant=Restaurant.objects.get(id=restaurant_id)
+    if request.method =='POST':
+        name=request.POSt.get('name')
+        picture=request.POST.get('picture')
+        cuisine=request.POST.get('cuisine')
+        rating=request.POSt.get('rating')
+        # price=request.POST.get('price')
+        
+        restaurant.name=name
+        restaurant.picture=picture
+        restaurant.cuisine=cuisine
+        restaurant.Rating=rating
+        # restaurant.price=price
+        
+        restaurant.save()
+        
+    restaurantList=Restaurant.objects.all()
+    return render(request, "show_restaurant.html" , {"restaurantList" : restaurantList})
+
+def delete_restaurant(request,restaurant_id):
+    restaurant =Restaurant.objects.get(id=restaurant_id)
+    restaurant.delete()
+    
+    restaurantList=Restaurant.objects.all()
+    return render(request,'show_restaurant.html',{"restaurantList" : restaurantList})

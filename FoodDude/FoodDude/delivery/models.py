@@ -19,7 +19,7 @@ class Restaurant(models.Model):
     name=models.CharField(max_length=50)
     picture=models.URLField( max_length=500, default='https://b.zmtcdn.com/data/pictures/2/20565372/bccf6cabc04a24fa6c4ccfbb56ac6a99_featured_v2.jpg')
     cuisine=models.CharField(max_length=200)
-    rating =models.FloatField()
+    Rating =models.FloatField()
     
     def __str__(self):
         return self.name

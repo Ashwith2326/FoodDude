@@ -117,13 +117,10 @@ def open_update_restaurant(request,restaurant_id):
 #     return render(request, 'update_restaurant.html',{'restaurant' : restaurant})
 
 def open_update_menu(request, restaurant_id):
-    try:
-        restaurant = Restaurant.objects.get(id = restaurant_id)
-        itemList = restaurant.items.all()
-        #itemList = Item.objects.all()
-        return render(request, 'update_menu.html',{"itemList" : itemList, "restaurant" : restaurant})
-    except Restaurant.DoesNotExist:
-        return render(request, 'failed.html')
+    restaurant = Restaurant.objects.get(id = restaurant_id)
+    itemList = restaurant.items.all()
+    #itemList = Item.objects.all()
+    return render(request, 'update_menu.html',{"itemList" : itemList, "restaurant" : restaurant})
 
 def update_menu(request, restaurant_id):
     restaurant = Restaurant.objects.get(id = restaurant_id)
@@ -147,7 +144,7 @@ def update_menu(request, restaurant_id):
                 vegeterian = vegeterian,
                 picture = picture,
             )
-    return render(request, 'show_restaurant.html', {'restaurantList': Restaurant.objects.all()})
+    return render(request, 'admin_home.html')
     # return HttpResponse("added")
     
 def open_update_restaurant(request, restaurant_id):
@@ -157,16 +154,16 @@ def open_update_restaurant(request, restaurant_id):
 def update_restaurant(request, restaurant_id):
     restaurant=Restaurant.objects.get(id=restaurant_id)
     if request.method =='POST':
-        name=request.POST.get('name')
+        name=request.POSt.get('name')
         picture=request.POST.get('picture')
         cuisine=request.POST.get('cuisine')
-        rating=request.POST.get('rating')
+        rating=request.POSt.get('rating')
         # price=request.POST.get('price')
         
         restaurant.name=name
         restaurant.picture=picture
         restaurant.cuisine=cuisine
-        restaurant.rating=rating
+        restaurant.Rating=rating
         # restaurant.price=price
         
         restaurant.save()
@@ -180,12 +177,3 @@ def delete_restaurant(request,restaurant_id):
     
     restaurantList=Restaurant.objects.all()
     return render(request,'show_restaurant.html',{"restaurantList" : restaurantList})
-
-
-def view_menu(request, restaurant_id,username):
-    restaurant=Restaurant.objects.get(id=restaurant_id)
-    return render(request,"customer_menu.html",{
-        "itemList" : restaurant.items.all(),
-        "restaurant" : restaurant,
-        "username" : username,
-    })
